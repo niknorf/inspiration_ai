@@ -1,17 +1,24 @@
-import { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Head from "next/head";
-// import Image from "next/image";
-// import { Flowbite, DarkThemeToggle } from "flowbite-react";
-
-// import styles from "@/styles/Home.module.css";
 
 export default function Home() {
 	const [userInput, setUserInput] = useState("");
 	const [apiOutput, setApiOutput] = useState("");
 	const [isGenerating, setIsGenerating] = useState(false);
 
+	// Scroll to output when it's visible
+	const outputRef = useRef(null);
+	const [outputVisible, setOutputVisible] = useState(false);
+
+	useEffect(() => {
+		if (outputVisible && outputRef.current) {
+			outputRef.current.scrollIntoView({ behavior: "smooth" });
+		}
+	}, [outputVisible, outputRef]);
+
 	const callGenerateEndpoint = async () => {
 		setIsGenerating(true);
+		setOutputVisible(false);
 
 		// console.log("Calling OpenAI...");
 		const response = await fetch("/api/generate", {
@@ -28,6 +35,7 @@ export default function Home() {
 
 		setApiOutput(`${output.text}`);
 		setIsGenerating(false);
+		setOutputVisible(true);
 	};
 
 	const onUserChangedText = (event) => {
@@ -87,7 +95,7 @@ export default function Home() {
 					<textarea
 						id="message"
 						rows="4"
-						className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+						className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
 						placeholder="Write about your challenge here:"
 						value={userInput}
 						onChange={onUserChangedText}
@@ -96,12 +104,12 @@ export default function Home() {
 						<button
 							disabled
 							type="button"
-							className="mr-2 inline-flex items-center transition-colors rounded-lg bg-blue-700 px-5 py-3 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+							class="text-white transition-colors bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
 						>
 							<svg
 								aria-hidden="true"
 								role="status"
-								className=" inline h-4 w-4 animate-spin text-white"
+								class="inline w-4 h-4 mr-3 text-white animate-spin"
 								viewBox="0 0 100 101"
 								fill="none"
 								xmlns="http://www.w3.org/2000/svg"
@@ -115,12 +123,13 @@ export default function Home() {
 									fill="currentColor"
 								/>
 							</svg>
+							Generating...
 						</button>
 					) : (
 						<button
 							type="button"
 							onClick={callGenerateEndpoint}
-							className="mr-2 mb-2 transition-colors rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+							className="mr-2 mb-2 transition-colors rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 						>
 							Generate
 						</button>
@@ -211,7 +220,7 @@ export default function Home() {
 
 				<div className="container mt-20">
 					{apiOutput && (
-						<div>
+						<div ref={outputRef} className="output">
 							<h3>Ideas:</h3>
 							<div>
 								{filteredOutputJSX}
