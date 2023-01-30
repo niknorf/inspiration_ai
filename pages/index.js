@@ -129,7 +129,10 @@ export default function Home() {
 						<button
 							type="button"
 							onClick={callGenerateEndpoint}
-							className="mr-2 mb-2 transition-colors rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+							className={`mr-2 mb-2 transition-colors rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${
+								userInput ? "" : "cursor-not-allowed opacity-50"
+							}`}
+							disabled={!userInput}
 						>
 							Generate
 						</button>
