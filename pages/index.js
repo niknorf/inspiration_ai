@@ -73,7 +73,7 @@ export default function Home() {
 		<>
 			<Head>
 				<title>Inspiration AI</title>
-				<meta name="description" content="Agile AI Project Management Tool" />
+				<meta name="description" content="Service design inspiration" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
