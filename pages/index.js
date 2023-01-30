@@ -202,9 +202,9 @@ export default function Home() {
 
 						<span>
 							The public transportation provider would like to introduce a
-							"Journey Planner" feature, giving customers a smarter way to plan
-							trips, considering real-time transport availability and weather
-							conditions.
+							&quot;Journey Planner&quot; feature, giving customers a smarter
+							way to plan trips, considering real-time transport availability
+							and weather conditions.
 						</span>
 					</div>
 				</div>
