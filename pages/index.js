@@ -136,7 +136,7 @@ export default function Home() {
 					)}
 				</div>
 
-				<p>Or use one of the examples below:</p>
+				<p>Or try the examples below:</p>
 
 				<div className="space-y-2">
 					<div
