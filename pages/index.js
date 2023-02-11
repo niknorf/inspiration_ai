@@ -61,7 +61,7 @@ export default function Home() {
 		}
 	});
 
-	// Filter out any null elements from the outputJSX array
+	// Filter out any null elements from the outputJSX array and store it in a new array
 	const filteredOutputJSX = outputJSX.filter((el) => el !== null);
 
 	function handleClick(event) {
