@@ -20,7 +20,6 @@ export default function Home() {
 		setIsGenerating(true);
 		setOutputVisible(false);
 
-		// console.log("Calling OpenAI...");
 		const response = await fetch("/api/generate", {
 			method: "POST",
 			headers: {
@@ -44,7 +43,7 @@ export default function Home() {
 
 	const lines = apiOutput.split("\n");
 
-	// Create an empty array to store list items
+	// Array to store list items
 	const listItems = [];
 
 	const outputJSX = lines.map((line, index) => {
@@ -79,9 +78,6 @@ export default function Home() {
 			</Head>
 
 			<div className="mx-auto mt-20 mb-20 max-w-2xl format lg:format-lg format-blue dark:format-invert px-4">
-				<span className="bg-blue-100 text-blue-800 text-2xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 flex mb-4 w-fit">
-					Solita Demo
-				</span>
 				<h1 className="animate-text bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent text-5xl font-extrabold">
 					inspiration_ai
 				</h1>
